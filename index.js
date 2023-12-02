@@ -83,7 +83,9 @@ async function run() {
         admin = user?.role === 'admin';
       }
       res.send({admin})
-    })
+    });
+
+
     app.get('/allContest', async (req, res) => {
       const result = await AllCollection.find().toArray();
       res.send(result);
@@ -110,6 +112,11 @@ async function run() {
       const contestItem = req.body;
       const result = await AllCollection.insertOne(contestItem);
       res.send(result);
+    });
+
+    app.get('/contest/:email', async(req, res) => {
+      const email = req.params.email;
+      const result = await AllCollection.find({'moderator.email': email}).toArray()
     })
 
     app.get('/parces', async (req, res) => {
