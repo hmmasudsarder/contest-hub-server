@@ -106,6 +106,12 @@ async function run() {
       res.send(result)
     });
 
+    app.post('/contest', verifyToken, async(req, res) => {
+      const contestItem = req.body;
+      const result = await AllCollection.insertOne(contestItem);
+      res.send(result);
+    })
+
     app.get('/parces', async (req, res) => {
       const email = req.query.email;
       const query = {
